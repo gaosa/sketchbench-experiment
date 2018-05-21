@@ -6,7 +6,7 @@
 
 template<class Hash>
 class Cm: public Cu<Hash> {
-private:
+protected:
     using Cu<Hash>::k;
     using Cu<Hash>::l;
     using Cu<Hash>::h;

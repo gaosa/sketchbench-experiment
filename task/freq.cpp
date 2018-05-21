@@ -1,5 +1,5 @@
-#include "../sketch/Sbf.h"
+#include "../sketch/Cmm2.h"
 #include "../utils/Hash.h"
 int main() {
-    Sbf<Hash>(4, 10000, 16);
+    Cmm2<Hash>(4, 10000, 16);
 }
