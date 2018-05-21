@@ -14,7 +14,7 @@ protected:
     using Base<Hash>::w;
     using Base<Hash>::data;
     Hash g[Params::MaxHashNum];
-    unsigned int t[Params::MaxHashNum];
+    int t[Params::MaxHashNum];
 public:
     C(int _k, int _l, int _w): Base<Hash>(_k, _l, _w) {
         for (int i = 0; i < k; ++i) {
@@ -29,7 +29,7 @@ public:
     int Query(const char* str, const int len) {
         for (int i = 0; i < k; ++i) {
             t[i] = data[i][h[i].Run(str, len) % l];
-            t[i] = (g[i].Run(str, len) & 1) ? t[i] : -t[i];
+            t[i] = ((g[i].Run(str, len) & 1) ? t[i] : -t[i]);
         }
         std::sort(t, t+k);
         int res = (t[k>>1] + t[(k-1)>>1])>>1;
