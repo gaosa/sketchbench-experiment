@@ -1,5 +1,6 @@
-#include "../sketch/Cmm2.h"
+#include "../sketch/all.h"
 #include "../utils/Hash.h"
+
 int main() {
-    Cmm2<Hash>(4, 10000, 16);
+    A<Hash>(4, 10000, 16);
 }
