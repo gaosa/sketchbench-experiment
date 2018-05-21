@@ -4,6 +4,8 @@
 #include "Base.h"
 #include "Params.h"
 
+#include <iostream>
+
 template<class Hash>
 class Cu: public Base<Hash> {
 protected:
@@ -19,7 +21,7 @@ public:
         for (int i = 0; i < k; ++i) {
             t[i] = h[i].Run(str, len) % l;
         }
-        int sm = data[0][t[0]], idx = 0;
+        int sm = data[0][t[0]];
         for (int i = 1; i < k; ++i) {
             int tt = data[i][t[i]];
             sm = sm < tt ? sm : tt; 
@@ -30,7 +32,7 @@ public:
     }
     int Query(const char* str, const int len) {
         int sm = data[0][h[0].Run(str, len) % l];
-        for (int i = 1; i < l; ++i) {
+        for (int i = 1; i < k; ++i) {
             int tt = data[i][h[i].Run(str, len) % l];
             sm = sm < tt ? sm : tt;
         }
