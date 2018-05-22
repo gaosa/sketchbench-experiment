@@ -3,57 +3,93 @@
 #include "../utils/Data.h"
 
 #include <unordered_map>
+#include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
+// in this step, sketch and data are already inited
+// return pair: freqs and time
 template<class Sketch>
-void task(Sketch& sk, Data& dat) {
-    char str[4];
+pair<vector<pair<int, int> >, vector<long long> >
+run(Sketch& sk, Data& dat, int strByte = 4) {
+    dat.Reset();
+    char* str = new char[strByte];
     unordered_map<string, int> m;
+    vector<long long> timesNano;
+    auto begin = chrono::high_resolution_clock::now();
     while (dat.Next(str)) {
-        sk.Insert(str, 4);
-        ++m[string(str, 4)];
+        sk.Insert(str, strByte);
     }
-    int aae = 0;
+    auto end = chrono::high_resolution_clock::now();
+    timesNano.push_back(chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+    int cnt = 0;
+    dat.Reset();
+    while (dat.Next(str)) {
+        ++cnt;
+        ++m[string(str, strByte)];
+    }
+    timesNano.push_back(cnt);
+    vector<pair<int, int> > res;
+    int useless = 0;
+    begin = chrono::high_resolution_clock::now();
     for (const auto& p: m) {
-        int real = p.second;
-        int guess = sk.Query(p.first.c_str(), 4);
-        int ae = real - guess;
-        ae = ae < 0 ? -ae : ae;
-        aae += ae;
+        useless += sk.Query(p.first.c_str(), strByte);
     }
-    cout << (double)aae / m.size() << endl;
+    cout << useless << endl;
+    end = chrono::high_resolution_clock::now();
+    timesNano.push_back(chrono::duration_cast<chrono::nanoseconds>(end - begin).count());
+    timesNano.push_back(m.size());
+    for (const auto& p: m) {
+        res.push_back(make_pair(p.second, sk.Query(p.first.c_str(), strByte)));
+    }
+    delete [] str;
+    return make_pair(res, timesNano);
+}
+
+void save(const pair<vector<pair<int, int> >, vector<long long> >& result, const string& freqpath, const string& thrupath) {
+    ofstream f;
+    f.open(freqpath);
+    for (const auto& p: result.first) {
+        f << p.first << "\t" << p.second << endl;
+    }
+    f.close();
+    f.open(thrupath);
+    for (const auto& n: result.second) {
+        f << n << endl;
+    }
+    f.close();
+}
+
+inline string genpath(string task, string dat, string sk, int k, int l, int w) {
+    return "result/" + task + 
+           "/" + dat + "/" + sk + 
+           "/" + to_string(k) + "_" + 
+           to_string(l) + "_" + to_string(w) + 
+           ".txt";
+}
+
+template<class Sketch>
+void init_run_save(const string& filepath, const string& filename, int k, int l, int w) {
+    Sketch sk(k, l, w);
+    Data dat;
+    dat.Open(filepath.c_str());
+    save(
+        run(sk, dat),
+        genpath("freq", filename, sk.Name, k, l, w),
+        genpath("thru", filename, sk.Name, k, l, w)
+    );
 }
 
 int main() {
-    Cu<Hash> cu(4, 65536, 16);
-    Cm<Hash> cm(4, 65536, 16);
-    A<Hash> a(4, 65536, 16);
-    C<Hash> c(4, 65536, 16);
-    Cmm<Hash> cmm(4, 65536, 16);
-    Cmm2<Hash> cmm2(4, 65536, 16);
-    Csm<Hash> csm(4, 65536, 16);
-    Lcu<Hash> lcu(4, 65536, 16);
-    Sbf<Hash> sbf(4, 65536, 16);
-    Data dat;
-    dat.Open("/Users/GSA/Desktop/local/sketchbench-DatasetAnalyzer/dataset/kosarak.dat", 4);
-    task(cu, dat);
-    dat.Reset();
-    task(cm, dat);
-    dat.Reset();
-    task(a, dat);
-    dat.Reset();
-    task(c, dat);
-    dat.Reset();
-    task(cmm, dat);
-    dat.Reset();
-    task(cmm2, dat);
-    dat.Reset();
-    task(csm, dat);
-    dat.Reset();
-    task(lcu, dat);
-    dat.Reset();
-    task(sbf, dat);
+
+    init_run_save<A<Hash> >(
+        "/Users/GSA/Desktop/local/sketchbench-DatasetAnalyzer/dataset/webdocs00.dat",
+        "webdocs",
+        4, 65536, 16
+    );
+    
+    return 0;
 }

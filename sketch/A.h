@@ -30,6 +30,7 @@ protected:
         return res;
     }
 public:
+    const std::string Name = "a";
     A(int _k, int _l, int _w): Cm<Hash>(_k, _l, _w) {
         filter = new char [Params::MaxStrByte * Params::FilterSize];
         oldcnt = new int [Params::FilterSize];

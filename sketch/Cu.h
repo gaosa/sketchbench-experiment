@@ -16,6 +16,7 @@ protected:
     using Base<Hash>::data;
     unsigned int t[Params::MaxHashNum];
 public:
+    const std::string Name = "cu";
     Cu(int _k, int _l, int _w): Base<Hash>(_k, _l, _w) {}
     void Insert(const char* str, const int len) {
         for (int i = 0; i < k; ++i) {

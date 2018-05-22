@@ -13,6 +13,7 @@ private:
     using Cu<Hash>::data;
     int idx = 1, sz = 0;
 public:
+    const std::string Name = "lcu";
     Lcu(int _k, int _l, int _w): Cu<Hash>(_k, _l, _w) {}
     void Insert(const char* str, const int len) {
         ++sz;

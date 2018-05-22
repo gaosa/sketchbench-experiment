@@ -15,6 +15,7 @@ protected:
     using Base<Hash>::data;
     int acc = 0, ave = 0;
 public:
+    const std::string Name = "csm";
     Csm(int _k, int _l, int _w): Base<Hash>(_k, _l, _w) {}
     void Insert(const char* str, const int len) {
         int i = rand() % k;

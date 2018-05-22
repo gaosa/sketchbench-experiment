@@ -2,6 +2,7 @@
 #define BASE_H
 
 #include "Params.h"
+#include <string>
 
 template<class Hash>
 class Base {
@@ -10,6 +11,7 @@ protected:
     Hash h[Params::MaxHashNum];
 public:
     const int k, l, w; // hash num, counter per array, bit per counter
+    const std::string Name = "base";
     Base(int _k, int _l, int _w): k(_k), l(_l), w(_w) {
         // alloc memory and init
         for (int i = 0; i < k; ++i) {

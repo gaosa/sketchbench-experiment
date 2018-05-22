@@ -2,6 +2,7 @@
 #define SBF_H
 
 #include "Params.h"
+#include <string>
 
 template<class Hash>
 class Sbf {
@@ -10,6 +11,7 @@ private:
     int* data;
     Hash h[Params::MaxHashNum];
 public:
+    const std::string Name = "sbf";
     Sbf(int _k, int _l, int _w): k(_k), l(_l), w(_w) {
         data = new int[k*l];
         for (int i = 0; i < k; ++i) h[i].SetSeed(1000+i);

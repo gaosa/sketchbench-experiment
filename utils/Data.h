@@ -9,7 +9,7 @@ private:
     FILE *fp = NULL;
     int strLen;
 public:
-    void Open(const char *path, const int _strLen) {
+    void Open(const char *path, const int _strLen = 4) {
         if (fp != NULL) {
             fclose(fp);
             fp = NULL;

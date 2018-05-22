@@ -16,6 +16,7 @@ private:
     int tot = 0;
     int t[Params::MaxHashNum];
 public:
+    const std::string Name = "cmm";
     Cmm(int _k, int _l, int _w): Cm<Hash>(_k, _l, _w) {}
     void Insert(const char* str, const int len) {
         Cm<Hash>::Insert(str, len);

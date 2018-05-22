@@ -16,6 +16,7 @@ protected:
     Hash g[Params::MaxHashNum];
     int t[Params::MaxHashNum];
 public:
+    const std::string Name = "c";
     C(int _k, int _l, int _w): Base<Hash>(_k, _l, _w) {
         for (int i = 0; i < k; ++i) {
             g[i].SetSeed(1000 + k + i);

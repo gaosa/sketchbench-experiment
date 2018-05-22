@@ -16,6 +16,7 @@ private:
     int tot = 0;
     int t[Params::MaxHashNum];
 public:
+    const std::string Name = "cmm2";
     Cmm2(int _k, int _l, int _w): Cu<Hash>(_k, _l, _w) {}
     void Insert(const char* str, const int len) {
         Cu<Hash>::Insert(str, len);
