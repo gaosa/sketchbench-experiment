@@ -18,3 +18,9 @@ init_run_save<A<Hash> >(
 * 添加`task/topk.cpp`  --> zcxy
 * 添加`task/heavychange.cpp`  --> zcxy
 * 实验结果分析  --> gsa
+
+## 运行
+
+```
+./a.out <name> <path> <res_file_name>
+```

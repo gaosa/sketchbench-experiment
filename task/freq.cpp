@@ -72,27 +72,50 @@ inline string genpath(string task, string dat, string sk, int k, int l, int w) {
 }
 
 template<class Sketch>
-void init_run_save(const string& filepath, const string& filename, int k, int l, int w = 24) {
-    Sketch sk(k, l, w);
+void init_run_save(const string& filepath, const string& filename, int k, int mem, int w = 24) {
+    Sketch sk(k, mem/(k*w), w);
     Data dat;
     dat.Open(filepath.c_str());
     save(
         run(sk, dat),
-        genpath("freq", filename, sk.Name, k, l, w),
-        genpath("thru", filename, sk.Name, k, l, w)
+        genpath("freq", filename, sk.Name, k, mem, w),
+        genpath("thru", filename, sk.Name, k, mem, w)
     );
 }
 
-int main() {
+// wrapper for init_run_save
+void sk_init_run_save(const string& sk, const string& filepath, const string& filename, int k, int mem, int w = 24) {
+    if (sk == "a") { init_run_save<A<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "c") { init_run_save<C<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "cu") { init_run_save<Cu<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "cm") { init_run_save<Cm<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "cmm") { init_run_save<Cmm<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "cmm2") { init_run_save<Cmm2<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "lcu") { init_run_save<Lcu<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "csm") { init_run_save<Csm<Hash> >(filepath, filename, k, mem, w);}
+    else if (sk == "sbf") { init_run_save<Sbf<Hash> >(filepath, filename, k, mem, w);}
+    else { cout << "wrong sketch name" << endl; }
+}
+
+int main(int argc, char* argv[]) {
+    //init_run_save<A<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<C<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<Cmm<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<Cmm2<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<Csm<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<Cu<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<Lcu<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<Sbf<Hash> >(argv[1], argv[2], 4, (1<<23));
+    //init_run_save<Cm<Hash> >(argv[1], argv[2], 4, (1<<23));
+    
+    const string sk = argv[1];
+    const char* filepath = argv[2];
+    const char* filename = argv[3];
 
     for (int k = 2, cnt = 0; k <= 9; ++k) {
-        for (int l = 65536; l <= 10 * 65536; l += 65536) {
-            init_run_save<A<Hash> >(
-                "/Users/GSA/Desktop/local/sketchbench-DatasetAnalyzer/dataset/webdocs00.dat",
-                "webdocs",
-                k, l
-            );
-            cout << ++cnt << " " << (8 * 10) << endl;
+        for (int mem = (1<<22); mem <= (1<<25); mem += (1<<22)) {
+            sk_init_run_save(sk, filepath, filename, k, mem);
+            cout << ++cnt << " " << 64 << endl;
         }
     }
     

@@ -24,7 +24,7 @@ public:
     }
     int Query(const char* str, const int len) {
         int sm = data[h[0].Run(str, len) % (k*l)];
-        for (int i = 0; i < k; ++i) {
+        for (int i = 1; i < k; ++i) {
             int t = data[h[i].Run(str, len) % (k*l)];
             sm = sm < t ? sm : t;
         }
