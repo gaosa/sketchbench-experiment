@@ -98,15 +98,6 @@ void sk_init_run_save(const string& sk, const string& filepath, const string& fi
 }
 
 int main(int argc, char* argv[]) {
-    //init_run_save<A<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<C<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<Cmm<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<Cmm2<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<Csm<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<Cu<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<Lcu<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<Sbf<Hash> >(argv[1], argv[2], 4, (1<<23));
-    //init_run_save<Cm<Hash> >(argv[1], argv[2], 4, (1<<23));
     
     const string sk = argv[1];
     const char* filepath = argv[2];
