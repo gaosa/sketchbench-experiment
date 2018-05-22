@@ -72,7 +72,7 @@ inline string genpath(string task, string dat, string sk, int k, int l, int w) {
 }
 
 template<class Sketch>
-void init_run_save(const string& filepath, const string& filename, int k, int l, int w) {
+void init_run_save(const string& filepath, const string& filename, int k, int l, int w = 24) {
     Sketch sk(k, l, w);
     Data dat;
     dat.Open(filepath.c_str());
@@ -85,11 +85,16 @@ void init_run_save(const string& filepath, const string& filename, int k, int l,
 
 int main() {
 
-    init_run_save<A<Hash> >(
-        "/Users/GSA/Desktop/local/sketchbench-DatasetAnalyzer/dataset/webdocs00.dat",
-        "webdocs",
-        4, 65536, 16
-    );
+    for (int k = 2, cnt = 0; k <= 9; ++k) {
+        for (int l = 65536; l <= 10 * 65536; l += 65536) {
+            init_run_save<A<Hash> >(
+                "/Users/GSA/Desktop/local/sketchbench-DatasetAnalyzer/dataset/webdocs00.dat",
+                "webdocs",
+                k, l
+            );
+            cout << ++cnt << " " << (8 * 10) << endl;
+        }
+    }
     
     return 0;
 }
