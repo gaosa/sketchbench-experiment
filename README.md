@@ -23,4 +23,5 @@ init_run_save<A<Hash> >(
 
 ```
 ./a.out <name> <path> <res_file_name>
+./a.out a path_to_webdocs wedocs
 ```
