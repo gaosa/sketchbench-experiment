@@ -15,6 +15,7 @@ public:
     Sbf(int _k, int _l, int _w): k(_k), l(_l), w(_w) {
         data = new int[k*l];
         for (int i = 0; i < k; ++i) h[i].SetSeed(1000+i);
+        for (int i = 0; i < (k*l); ++i) data[i] = 0;
     }
     ~Sbf() { delete [] data; }
     void Insert(const char* str, const int len) {
