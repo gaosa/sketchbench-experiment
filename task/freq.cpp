@@ -99,7 +99,7 @@ void sk_init_run_save(const string& sk, const string& filepath, const string& fi
 
 int main(int argc, char* argv[]) {
     
-    const string sk = argv[1];
+    /*const string sk = argv[1];
     const char* filepath = argv[2];
     const char* filename = argv[3];
 
@@ -108,6 +108,68 @@ int main(int argc, char* argv[]) {
             sk_init_run_save(sk, filepath, filename, k, mem);
             cout << ++cnt << " " << 64 << endl;
         }
+    }*/
+    const int k = 3, mem = (1<<24), w = 24;
+    auto _1 = A<Hash>(k, mem/(k*w), w);
+    auto _2 = C<Hash>(k, mem/(k*w), w);
+    auto _3 = Cm<Hash>(k, mem/(k*w), w);
+    auto _4 = Cmm<Hash>(k, mem/(k*w), w);
+    auto _5 = Cmm2<Hash>(k, mem/(k*w), w);
+    auto _6 = Cu<Hash>(k, mem/(k*w), w);
+    auto _7 = Csm<Hash>(k, mem/(k*w), w);
+    auto _8 = Lcu<Hash>(k, mem/(k*w), w);
+    auto _9 = Sbf<Hash>(k, mem/(k*w), w);
+    const string path = "/home/jiangjie/data/cold_filter/new_zipf";
+    const vector<string> names = {"000","003","006","009","012","015","018","021","024","027","030"};
+    for (string name: names) {
+        string filename = path + "/" + name + ".dat";
+        Data dat;
+        dat.Open(filename.c_str());
+        save(
+            run(_1, dat),
+            "result/freq/zipf/"+name+"_a.txt",
+            "result/thru/zipf/"+name+"_a.txt"
+        );
+        save(
+            run(_2, dat),
+            "result/freq/zipf/"+name+"_c.txt",
+            "result/thru/zipf/"+name+"_c.txt"
+        );
+        save(
+            run(_3, dat),
+            "result/freq/zipf/"+name+"_cm.txt",
+            "result/thru/zipf/"+name+"_cm.txt"
+        );
+        save(
+            run(_4, dat),
+            "result/freq/zipf/"+name+"_cmm.txt",
+            "result/thru/zipf/"+name+"_cmm.txt"
+        );
+        save(
+            run(_5, dat),
+            "result/freq/zipf/"+name+"_cmm2.txt",
+            "result/thru/zipf/"+name+"_cmm2.txt"
+        );
+        save(
+            run(_6, dat),
+            "result/freq/zipf/"+name+"_cu.txt",
+            "result/thru/zipf/"+name+"_cu.txt"
+        );
+        save(
+            run(_7, dat),
+            "result/freq/zipf/"+name+"_csm.txt",
+            "result/thru/zipf/"+name+"_csm.txt"
+        );
+        save(
+            run(_8, dat),
+            "result/freq/zipf/"+name+"_lcu.txt",
+            "result/thru/zipf/"+name+"_lcu.txt"
+        );
+        save(
+            run(_9, dat),
+            "result/freq/zipf/"+name+"_sbf.txt",
+            "result/thru/zipf/"+name+"_sbf.txt"
+        );
     }
     
     return 0;
