@@ -109,68 +109,70 @@ int main(int argc, char* argv[]) {
             cout << ++cnt << " " << 64 << endl;
         }
     }*/
+
+    
     const int k = 3, mem = (1<<24), w = 24;
-    auto _1 = A<Hash>(k, mem/(k*w), w);
-    auto _2 = C<Hash>(k, mem/(k*w), w);
-    auto _3 = Cm<Hash>(k, mem/(k*w), w);
-    auto _4 = Cmm<Hash>(k, mem/(k*w), w);
-    auto _5 = Cmm2<Hash>(k, mem/(k*w), w);
-    auto _6 = Cu<Hash>(k, mem/(k*w), w);
-    auto _7 = Csm<Hash>(k, mem/(k*w), w);
-    auto _8 = Lcu<Hash>(k, mem/(k*w), w);
-    auto _9 = Sbf<Hash>(k, mem/(k*w), w);
-    const string path = "/home/jiangjie/data/cold_filter/new_zipf";
+    const string path = "../sketchbench-DatasetAnalyzer/dataset/zipf";
     const vector<string> names = {"000","003","006","009","012","015","018","021","024","027","030"};
     for (string name: names) {
+        auto _1 = A<Hash>(k, mem/(k*w), w);
+        auto _2 = C<Hash>(k, mem/(k*w), w);
+        auto _3 = Cm<Hash>(k, mem/(k*w), w);
+        auto _4 = Cmm<Hash>(k, mem/(k*w), w);
+        auto _5 = Cmm2<Hash>(k, mem/(k*w), w);
+        auto _6 = Cu<Hash>(k, mem/(k*w), w);
+        auto _7 = Csm<Hash>(k, mem/(k*w), w);
+        auto _8 = Lcu<Hash>(k, mem/(k*w), w);
+        auto _9 = Sbf<Hash>(k, mem/(k*w), w);
         string filename = path + "/" + name + ".dat";
         Data dat;
         dat.Open(filename.c_str());
         save(
             run(_1, dat),
-            "result/freq/zipf/"+name+"_a.txt",
-            "result/thru/zipf/"+name+"_a.txt"
+            "tmpfile/"+name+"_a.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_2, dat),
-            "result/freq/zipf/"+name+"_c.txt",
-            "result/thru/zipf/"+name+"_c.txt"
+            "tmpfile/"+name+"_c.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_3, dat),
-            "result/freq/zipf/"+name+"_cm.txt",
-            "result/thru/zipf/"+name+"_cm.txt"
+            "tmpfile/"+name+"_cm.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_4, dat),
-            "result/freq/zipf/"+name+"_cmm.txt",
-            "result/thru/zipf/"+name+"_cmm.txt"
+            "tmpfile/"+name+"_cmm.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_5, dat),
-            "result/freq/zipf/"+name+"_cmm2.txt",
-            "result/thru/zipf/"+name+"_cmm2.txt"
+            "tmpfile/"+name+"_cmm2.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_6, dat),
-            "result/freq/zipf/"+name+"_cu.txt",
-            "result/thru/zipf/"+name+"_cu.txt"
+            "tmpfile/"+name+"_cu.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_7, dat),
-            "result/freq/zipf/"+name+"_csm.txt",
-            "result/thru/zipf/"+name+"_csm.txt"
+            "tmpfile/"+name+"_csm.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_8, dat),
-            "result/freq/zipf/"+name+"_lcu.txt",
-            "result/thru/zipf/"+name+"_lcu.txt"
+            "tmpfile/"+name+"_lcu.txt",
+            "tmpfile/ignore.txt"
         );
         save(
             run(_9, dat),
-            "result/freq/zipf/"+name+"_sbf.txt",
-            "result/thru/zipf/"+name+"_sbf.txt"
+            "tmpfile/"+name+"_sbf.txt",
+            "tmpfile/ignore.txt"
         );
-    }
+    } 
     
     return 0;
 }
