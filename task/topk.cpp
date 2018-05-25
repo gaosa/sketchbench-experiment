@@ -85,7 +85,7 @@ void task(char* filename, int k) {
         else if (cache.size() < k) ++cache[s];
         else {
             int v = sk.Query(str, 4) + 1;
-            int sm = INT_MAX;
+            int sm = ~(1<<31);
             string ss;
             for (const auto& p: cache) {
                 if (p.second < sm) {
