@@ -1,11 +1,10 @@
-g++ -std=c++11 -O3 task/topk.cpp
-./a.out a 4096 > result/topk/a.txt 2>&1 &
-./a.out c 4096 > result/topk/c.txt 2>&1 &
-./a.out cu 4096 > result/topk/cu.txt 2>&1 &
-./a.out cm 4096 > result/topk/cm.txt 2>&1 &
-./a.out cmm 4096 > result/topk/cmm.txt 2>&1 &
-./a.out cmm2 4096 > result/topk/cmm2.txt 2>&1 &
-./a.out csm 4096 > result/topk/csm.txt 2>&1 &
-./a.out lcu 4096 > result/topk/lcu.txt 2>&1 &
-./a.out sbf 4096 > result/topk/sbf.txt 2>&1 &
-./a.out ss 4096 > result/topk/ss.txt 2>&1 &
+g++ -std=c++11 -O3 task/heavy.cpp
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat a > result/heavy/a.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat c > result/heavy/c.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat cu > result/heavy/cu.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat cm > result/heavy/cm.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat cmm > result/heavy/cmm.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat cmm2 > result/heavy/cmm2.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat csm > result/heavy/csm.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat lcu > result/heavy/lcu.txt 2>&1 &
+./a.out /home/wanghao/liuqianhui/SketchBench/formatted00.dat sbf > result/heavy/sbf.txt 2>&1 &
