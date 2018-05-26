@@ -68,6 +68,53 @@ public:
     }
 };*/
 
+void taskSpaceSaving(char* filename, int k) {
+    Data dat;
+    dat.Open(filename);
+    char str[5];
+    unordered_map<string, int> cache;
+    unordered_map<string, int> real;
+    unordered_map<string, int> str2int;
+    while (dat.Next(str)) {
+        string s(str, 4);
+        ++real[s];
+        if (!str2int.count(s)) str2int[s] = str2int.size();
+        if (cache.count(s)) ++ cache[s];
+        else if (cache.size() < k) ++cache[s];
+        else {
+            int sm = ~(1<<31);
+            string ss;
+            for (const auto& p: cache) {
+                if (p.second < sm) {
+                    sm = p.second;
+                    ss = p.first;
+                }
+            }
+            cache.erase(ss);
+            cache[s] = sm+1;
+        }
+    }
+    vector<pair<string, int> > res1;
+    for (const auto& p: cache) {
+        res1.push_back(p);
+    }
+    sort(res1.begin(), res1.end(), [](const pair<string, int>& p1, const pair<string, int>& p2) {
+        return p1.second > p2.second;
+    });
+    for (auto p: res1) {
+        cout << str2int[p.first] << " " << p.second << endl;
+    }
+    cout << endl;
+    vector<pair<string, int> > res2;
+    for (const auto& p: real) res2.push_back(p);
+    sort(res2.begin(), res2.end(), [](const pair<string, int>& p1, const pair<string, int>& p2) {
+        return p1.second > p2.second;
+    });
+    for (int i = 0; i < k; ++i) {
+        cout << str2int[res2[i].first] << " " << res2[i].second << endl;
+    }
+}
+
 template<class Sketch>
 void task(char* filename, int k) {
     auto sk = Sketch(3, (1<<20)/(3*24), 24);
@@ -98,7 +145,9 @@ void task(char* filename, int k) {
             } else {
                 cache.erase(ss);
                 cache[s] = v;
-                sk.Insert(ss.c_str(), 4);
+                v = sm - sk.Query(ss.c_str(), 4);
+                for (int i = 0; i < v; ++i)
+                    sk.Insert(ss.c_str(), 4);
             }
         }
     }
@@ -136,5 +185,6 @@ int main(int argc, char* argv[]) {
     else if (sk == "csm") task<Csm<Hash> >(filename, k);
     else if (sk == "lcu") task<Lcu<Hash> >(filename, k);
     else if (sk == "sbf") task<Sbf<Hash> >(filename, k);
+    else taskSpaceSaving(filename, k);
     return 0;
 }

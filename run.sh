@@ -8,3 +8,4 @@ g++ -std=c++11 -O3 task/topk.cpp
 ./a.out csm 512 > result/topk/csm.txt 2>&1 &
 ./a.out lcu 512 > result/topk/lcu.txt 2>&1 &
 ./a.out sbf 512 > result/topk/sbf.txt 2>&1 &
+./a.out ss 512 > result/topk/ss.txt 2>&1 &
