@@ -117,7 +117,7 @@ void taskSpaceSaving(char* filename, int k) {
 
 template<class Sketch>
 void task(char* filename, int k) {
-    auto sk = Sketch(3, (1<<20)/(3*24), 24);
+    auto sk = Sketch(3, (1<<19)/(3*24), 24);
     Data dat;
     dat.Open(filename);
     char str[5];
